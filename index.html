@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div#cover {
+    background: #fff;
+    width: 380px;
+    height: 265px;
+    position: absolute;
+    top: 19px;
+    left: 160px;
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div>
+        <video id="video" style="pointer-events: none;">
+            <source src="./night.mp4" type="video/mp4 " >
+        </video>
+        <div id="cover">
+            <h1 style="
+            text-align: center;
+        ">Result of 25 + 16 = ?</h1>
+            <div style="
+            text-align: center;
+        ">
+            <button class="res41">41</button>
+            <button class="res40">40</button>
+            </div>
+        </div>    
+    </div>
+    <span id="timer"></span>
+    <button id="play">Play</button>
+</body>
+<script>
+
+var video = document.querySelector('#video');
+var play = document.querySelector('#play');
+var timer = document.querySelector('#timer');
+var cover = document.querySelector('#cover');
+
+var res40 = document.querySelector('.res40');
+var res41 = document.querySelector('.res41');
+
+video.setAttribute('height', '300');
+video.setAttribute('width', '700');
+play.addEventListener('click',playVid);
+res40.addEventListener('click',answer40);
+res41.addEventListener('click',answer41);
+answerd1 = false;
+
+function answer40()
+{
+     video.currentTime = -10;
+     video.play();
+     cover.setAttribute('style','display:none!important');
+}
+
+function answer41()
+{
+     answerd1 = true;
+     video.play();
+     cover.setAttribute('style','display:none!important');
+}
+function playVid()
+{
+    if (video.paused)
+    {
+        video.play();
+    }else
+    {
+        video.pause();
+    }
+
+}
+setInterval(function(){
+  var current = video.currentTime;
+  let minutes = Math.floor(video.currentTime / 60);
+  let seconds = Math.floor(video.currentTime - minutes * 60);
+  let minuteValue;
+  let secondValue;
+
+  if (minutes < 10) {
+    minuteValue = '0' + minutes;
+  } else {
+    minuteValue = minutes;
+  }
+
+  if (seconds < 10) {
+    secondValue = '0' + seconds;
+  } else {
+    secondValue = seconds;
+  }
+
+  let mediaTime = minuteValue + ':' + secondValue;
+  timer.textContent = mediaTime;
+    if (current >=10 && answerd1 == false)
+    {
+        video.pause();
+        cover.setAttribute('style','display:block!important');
+    }
+
+},1);
+</script>
+</html>
